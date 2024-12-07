@@ -13,16 +13,16 @@ public class Meishiki {
     @Column
     public int id;
 
-    @Column
+    @Column(length = 2,nullable = false)
     public String kanshi;
 
-    @Column
-    public int kyoku;
+    @Column(nullable = false)
+    public Integer kyoku;
 
-    @Column
+    @Column(nullable = false)
     public String symbol;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "TEXT",nullable = false)
     public String description;
 
     public void setKanshi(String kanshi){

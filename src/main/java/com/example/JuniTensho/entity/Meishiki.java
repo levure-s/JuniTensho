@@ -17,7 +17,7 @@ public class Meishiki {
     public String kanshi;
 
     @Column(nullable = false)
-    public Integer kyoku;
+    public int kyoku;
 
     @Column(nullable = false)
     public String symbol;

@@ -1,6 +1,11 @@
 package com.example.JuniTensho;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,23 +43,31 @@ public class TenshoApiController {
 
     @PostConstruct
     public void init(){
-        Meishiki m1 = new Meishiki();
-        m1.setKanshi("甲子");
-        m1.setKyoku(1);
-        m1.setSymbol("桜満開の象");
-        m1.setDescription("若い内から周囲の羨望を独占し、限りない喜びに溢れた日々が約束されています。");
-        Meishiki m2 = new Meishiki();
-        m2.setKanshi("甲子");
-        m2.setKyoku(2);
-        m2.setSymbol("干潮満潮の象");
-        m2.setDescription("一生を通じ、幸不幸の振幅が激しのがあなたの人生。");
-        Meishiki m3 = new Meishiki();
-        m3.setKanshi("甲子");
-        m3.setKyoku(3);
-        m3.setSymbol("小川集りて大河となるの象");
-        m3.setDescription("苦労の多い幼少期を経て、人生は急激に開花します。");
-        repository.saveAndFlush(m1);
-        repository.saveAndFlush(m2);
-        repository.saveAndFlush(m3);
+        try {
+            ClassPathResource cr = new ClassPathResource("csv/命の課式.csv");
+            InputStream is = cr.getInputStream();
+            InputStreamReader isr = new InputStreamReader(is,"utf-8");
+            BufferedReader br = new BufferedReader(isr);
+
+            String line;
+            boolean isFirst = true;
+
+            while ((line = br.readLine()) != null) {
+                if (isFirst) {
+                    isFirst = false;
+                    continue;
+                }
+
+                String[] fields = line.split(",");
+                Meishiki meishiki = new Meishiki();
+                meishiki.setKanshi(fields[0]);
+                meishiki.setKyoku(Integer.parseInt(fields[1]));
+                meishiki.setSymbol(fields[2]);
+                meishiki.setDescription(fields[3]);
+                repository.saveAndFlush(meishiki);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to load CSV data", e);
+        }
     }
 }

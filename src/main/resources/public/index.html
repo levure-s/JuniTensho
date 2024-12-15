@@ -8,17 +8,24 @@
     <link rel="stylesheet" href="./stylesheet/style.css" />
   </head>
   <body>
-    <header>
+    <header class="header">
       <div class="inner">
         <h1>十二天祥星占術</h1>
       </div>
     </header>
-    <main>
+    <main class="main">
       <div class="inner">
         <div class="input">
-          <input type="number" id="year" min="1900" max="2200" />
-          <input type="number" id="month" min="1" max="12" />
-          <input type="number" id="day" min="1" max="31" />
+          <h2>生年月日（西暦）</h2>
+          <input
+            type="number"
+            id="year"
+            min="1900"
+            max="2200"
+            placeholder="年"
+          />
+          <input type="number" id="month" min="1" max="12" placeholder="月" />
+          <input type="number" id="day" min="1" max="31" placeholder="日" />
           <input type="submit" onclick="submit()" value="占う" />
         </div>
         <div class="result">
@@ -27,7 +34,7 @@
         </div>
       </div>
     </main>
-    <footer>
+    <footer class="footer">
       <div class="inner">
         <small>D1a2a</small>
       </div>

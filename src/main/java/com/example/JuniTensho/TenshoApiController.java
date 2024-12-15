@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,13 +33,17 @@ public class TenshoApiController {
     @Autowired
     KashikiFacade service;
 
-    @RequestMapping(value = "/meishiki", method=RequestMethod.GET)
-    public Mono<Meishiki> meishiki() {
-        String[] kashiki = service.meishiki(1986, 8, 19);
-        System.out.println(kashiki[0]);
-        System.out.println(kashiki[1]);
-        Meishiki res = dao.find("甲子", 3);
-        return Mono.just(res);
+    @RequestMapping(value = "/meishiki/{year}/{month}/{day}", method=RequestMethod.GET)
+    public Mono<Meishiki> meishiki(@PathVariable int year,@PathVariable int month,@PathVariable int day) {
+        String[] kashiki = service.meishiki(year, month, day);
+        
+        try {
+            Meishiki res = dao.find(kashiki[0], Integer.parseInt(kashiki[1]));
+            return Mono.just(res); 
+        } catch (Exception e) {
+            return Mono.error(new RuntimeException("データ取得に失敗しました", e));
+        }
+        
     }
 
     @PostConstruct

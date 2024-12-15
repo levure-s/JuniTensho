@@ -40,7 +40,6 @@
       const day = document.querySelector("#day").value;
       const url = "/meishiki/" + year + "/" + month + "/" + day;
       const result = await getData(url);
-      console.log(result);
       document.querySelector("#symbol").textContent = result.symbol;
       document.querySelector("#description").textContent = result.description;
     }

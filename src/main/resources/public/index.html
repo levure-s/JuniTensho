@@ -15,7 +15,16 @@
     </header>
     <main>
       <div class="inner">
-        <input type="date" />
+        <div class="input">
+          <input type="number" id="year" min="1900" max="2200" />
+          <input type="number" id="month" min="1" max="12" />
+          <input type="number" id="day" min="1" max="31" />
+          <input type="submit" onclick="submit()" value="占う" />
+        </div>
+        <div class="result">
+          <h2 id="symbol"></h2>
+          <div id="description"></div>
+        </div>
       </div>
     </main>
     <footer>
@@ -24,4 +33,30 @@
       </div>
     </footer>
   </body>
+  <script>
+    async function submit() {
+      const year = document.querySelector("#year").value;
+      const month = document.querySelector("#month").value;
+      const day = document.querySelector("#day").value;
+      const url = "/meishiki/" + year + "/" + month + "/" + day;
+      const result = await getData(url);
+      console.log(result);
+      document.querySelector("#symbol").textContent = result.symbol;
+      document.querySelector("#description").textContent = result.description;
+    }
+    async function getData(url) {
+      let result;
+      const response = await fetch(url);
+      if (response.ok) {
+        result = response.json();
+      } else {
+        result = {
+          symbol: "データが取得出来ませんでした。",
+          description: "中の人が力尽きたようです。",
+        };
+      }
+
+      return result;
+    }
+  </script>
 </html>

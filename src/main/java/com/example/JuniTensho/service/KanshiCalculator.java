@@ -3,6 +3,9 @@ package com.example.JuniTensho.service;
 import java.util.Calendar;
 import java.util.TimeZone;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class KanshiCalculator {
     private final String[] jikkan = {"甲","乙","丙","丁","戊","己","庚","辛","壬","癸"};
     private final String[] junishi = {"子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥"};

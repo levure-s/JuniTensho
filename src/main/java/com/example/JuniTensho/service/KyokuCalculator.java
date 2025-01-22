@@ -12,7 +12,7 @@ public class KyokuCalculator {
     public String[] calculateForMeishiki(String nenshi,String gessho){
         int y = this.junishi.indexOf(nenshi);
         int m = this.junishi.indexOf(gessho);
-        int kyoku = (13 + (y - m)) % 12;
+        int kyoku = (12 + (y - m)) % 12 + 1;
 
         String chuya;
         if (m < 2 || m > 7) {

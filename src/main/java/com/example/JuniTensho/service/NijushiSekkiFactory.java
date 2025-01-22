@@ -1,5 +1,8 @@
 package com.example.JuniTensho.service;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class NijushiSekkiFactory {
     private final String[] nijushisekki = {
         "小寒", "大寒", "立春", "雨水", "啓蟄", "春分", "清明", "穀雨", "立夏", "小満", "芒種", "夏至",

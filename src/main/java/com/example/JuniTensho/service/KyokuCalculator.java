@@ -3,6 +3,9 @@ package com.example.JuniTensho.service;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class KyokuCalculator {
     private final List<String> junishi = Arrays.asList("子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥");
 
